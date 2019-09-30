@@ -9,6 +9,7 @@ import (
 	"testing"
 	"unicode"
 
+	"golang.org/x/text/internal/testtext"
 	"golang.org/x/text/language"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
@@ -80,7 +81,7 @@ func TestCaseProperties(t *testing.T) {
 		}
 		// New letters may change case types, but existing case pairings should
 		// not change. See Case Pair Stability in
-		// http://unicode.org/policies/stability_policy.html.
+		// https://unicode.org/policies/stability_policy.html.
 		if rf := unicode.SimpleFold(r); rf != r && unicode.In(rf, assigned) {
 			if got, want := c.info.isCased(), propCased(r); got != want {
 				t.Errorf("cased(%U): got %v; want %v (%x)", r, got, want, c.info)
@@ -211,17 +212,31 @@ func TestCCC(t *testing.T) {
 }
 
 func TestWordBreaks(t *testing.T) {
-	for i, tt := range breakTest {
-		parts := strings.Split(tt, "|")
-		want := ""
-		for _, s := range parts {
-			want += Title(language.Und).String(s)
-		}
-		src := strings.Join(parts, "")
-		got := Title(language.Und).String(src)
-		if got != want {
-			t.Errorf("%d: title(%q) = %q; want %q", i, src, got, want)
-		}
+	for _, tt := range breakTest {
+		testtext.Run(t, tt, func(t *testing.T) {
+			parts := strings.Split(tt, "|")
+			want := ""
+			for _, s := range parts {
+				found := false
+				// This algorithm implements title casing given word breaks
+				// as defined in the Unicode standard 3.13 R3.
+				for _, r := range s {
+					title := unicode.ToTitle(r)
+					lower := unicode.ToLower(r)
+					if !found && title != lower {
+						found = true
+						want += string(title)
+					} else {
+						want += string(lower)
+					}
+				}
+			}
+			src := strings.Join(parts, "")
+			got := Title(language.Und).String(src)
+			if got != want {
+				t.Errorf("got %q; want %q", got, want)
+			}
+		})
 	}
 }
 
