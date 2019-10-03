@@ -22,28 +22,27 @@ import (
 	"testing"
 	"time"
 
+	"k8s.io/api/core/v1"
 	apiequality "k8s.io/apimachinery/pkg/api/equality"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/serializer"
 	runtimejson "k8s.io/apimachinery/pkg/runtime/serializer/json"
 	"k8s.io/apimachinery/pkg/runtime/serializer/streaming"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/kubernetes/scheme"
-	"k8s.io/client-go/pkg/api/v1"
 	restclientwatch "k8s.io/client-go/rest/watch"
 )
 
 // getDecoder mimics how k8s.io/client-go/rest.createSerializers creates a decoder
 func getDecoder() runtime.Decoder {
 	jsonSerializer := runtimejson.NewSerializer(runtimejson.DefaultMetaFactory, scheme.Scheme, scheme.Scheme, false)
-	directCodecFactory := serializer.DirectCodecFactory{CodecFactory: scheme.Codecs}
+	directCodecFactory := scheme.Codecs.WithoutConversion()
 	return directCodecFactory.DecoderToVersion(jsonSerializer, v1.SchemeGroupVersion)
 }
 
 func TestDecoder(t *testing.T) {
-	table := []watch.EventType{watch.Added, watch.Deleted, watch.Modified, watch.Error}
+	table := []watch.EventType{watch.Added, watch.Deleted, watch.Modified, watch.Error, watch.Bookmark}
 
 	for _, eventType := range table {
 		out, in := io.Pipe()

@@ -21,22 +21,21 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"k8s.io/api/core/v1"
 	apiequality "k8s.io/apimachinery/pkg/api/equality"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/serializer"
 	runtimejson "k8s.io/apimachinery/pkg/runtime/serializer/json"
 	"k8s.io/apimachinery/pkg/runtime/serializer/streaming"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/kubernetes/scheme"
-	"k8s.io/client-go/pkg/api/v1"
 	restclientwatch "k8s.io/client-go/rest/watch"
 )
 
 // getEncoder mimics how k8s.io/client-go/rest.createSerializers creates a encoder
 func getEncoder() runtime.Encoder {
 	jsonSerializer := runtimejson.NewSerializer(runtimejson.DefaultMetaFactory, scheme.Scheme, scheme.Scheme, false)
-	directCodecFactory := serializer.DirectCodecFactory{CodecFactory: scheme.Codecs}
+	directCodecFactory := scheme.Codecs.WithoutConversion()
 	return directCodecFactory.EncoderForVersion(jsonSerializer, v1.SchemeGroupVersion)
 }
 
@@ -55,6 +54,10 @@ func TestEncodeDecodeRoundTrip(t *testing.T) {
 		},
 		{
 			watch.Deleted,
+			&v1.Pod{ObjectMeta: metav1.ObjectMeta{Name: "foo"}},
+		},
+		{
+			watch.Bookmark,
 			&v1.Pod{ObjectMeta: metav1.ObjectMeta{Name: "foo"}},
 		},
 	}
