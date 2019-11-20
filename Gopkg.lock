@@ -15,7 +15,7 @@
   name = "github.com/giantswarm/microendpoint"
   packages = ["service/healthz"]
   pruneopts = "UT"
-  revision = "ec99bee306f4065a5137ed70a0f7e3bf20bb896d"
+  revision = "e991deac265373d9347b96ecc56b13f228be144f"
 
 [[projects]]
   branch = "master"
@@ -151,11 +151,11 @@
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
   pruneopts = "UT"
-  revision = "4f8c1d86b1ba699e7a66cd649947ed270a74e0bb"
+  revision = "e9b2fee46413994441b28dfca259d911d963dfed"
 
 [[projects]]
   branch = "master"
-  digest = "1:572817a5e74219a011a0baa07279ae8369c289f850f920db9c2f0f0c35382768"
+  digest = "1:e4a92f168e339bc2e697401a883588748fa58e0dd3ae14160f9bd890ca37382d"
   name = "golang.org/x/net"
   packages = [
     "context",
@@ -166,29 +166,29 @@
     "idna",
   ]
   pruneopts = "UT"
-  revision = "fc4aabc6c91483155dade6fbb627cc953a723260"
+  revision = "c0dbc17a35534bf2e581d7a942408dc936316da4"
 
 [[projects]]
   branch = "master"
-  digest = "1:8d1c112fb1679fa097e9a9255a786ee47383fa2549a3da71bcb1334a693ebcfe"
+  digest = "1:55d36eb35766a3f105fa36cfb2faf053cc33c019108a6adee799c4e7d59d62b2"
   name = "golang.org/x/oauth2"
   packages = [
     ".",
     "internal",
   ]
   pruneopts = "UT"
-  revision = "0f29369cfe4552d0e4bcddc57cc75f4d7e672a33"
+  revision = "858c2ad4c8b6c5d10852cb89079f6ca1c7309787"
 
 [[projects]]
   branch = "master"
-  digest = "1:b4f65fd5555a50953c6af51eacf90b81250e3073c52d85cb881f7f64ce71a5c2"
+  digest = "1:8191c209ac2aaba9e958a061256fab8955ad10cc731aa609660184800f1ef55a"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "f068ffe820e46336f56dfca7777430582d6e507b"
+  revision = "eeba5f6aabab6d6594a9191d6bfeaca5fa6a8248"
 
 [[projects]]
   digest = "1:8d8faad6b12a3a4c819a3f9618cb6ee1fa1cfc33253abeeea8b55336721e3405"
@@ -257,7 +257,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:17cead3c012417dd2dd336113138c19de2537062a0f7a08085c7adede5e464b4"
+  digest = "1:a9abbaf482d2d5d722f243cb1820cfdc9e7bed8d8611f6ecad9f9604c92ebaa3"
   name = "k8s.io/api"
   packages = [
     "admissionregistration/v1",
@@ -300,7 +300,7 @@
     "storage/v1beta1",
   ]
   pruneopts = "UT"
-  revision = "bbc9463b57e59c52e280ba589c0e45c3bb212ffe"
+  revision = "7edad22604e1b0437963e77bdf884a331461ed26"
 
 [[projects]]
   digest = "1:4d4dce4549f8e45a12f147631f33d695be75fe7c42352081b0a286c6ae79dfb0"

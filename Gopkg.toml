@@ -26,16 +26,16 @@
 
 
 [[constraint]]
-  branch = "master"
   name = "github.com/giantswarm/microendpoint"
+  branch = "master"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/giantswarm/microerror"
+  branch = "master"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/giantswarm/micrologger"
+  branch = "master"
 
 [[constraint]]
   name = "k8s.io/client-go"
